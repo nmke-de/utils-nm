@@ -1,0 +1,36 @@
+#!/usr/bin/awk -E
+
+function args(){
+	for (i=1;i<=ARGC;i++){
+		if(empty==1){
+			min = int(ARGV[i])
+			empty = 0
+		}else if(ARGV[i] == ""){
+			continue
+		}else if(int(ARGV[i]) < min){
+			min = int(ARGV[i])
+		}
+		ARGV[i] = ""
+	}
+	exit
+}
+
+BEGIN{
+	min = ""
+	empty = 1
+	if (ARGC > 1)
+		args()
+}
+
+NR == 1 {
+	min = int($0)
+}
+
+int($0) < min{
+	min = int($0)
+}
+
+END{
+	print min
+	exit
+}

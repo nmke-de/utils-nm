@@ -1,0 +1,13 @@
+#!/bin/bash
+
+delete () {
+	[ -f "$1" ] && rm -f "$1"
+}
+
+if [ $# -eq 0 ]; then
+	w3m "https://duckduckgo.com"
+else
+	w3m $1
+fi
+delete ~/.w3m/history
+delete ~/.w3m/cookie

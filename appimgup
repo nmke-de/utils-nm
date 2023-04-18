@@ -1,0 +1,11 @@
+#!/bin/bash
+# Do not delete - needed to update appimages!
+for item in `ls ~/.local/bin | grep -i appimage$` ; do
+	echo "Updating $item ..."
+	#AppImageUpdate-x86_64.AppImage "$HOME/.local/bin/$item"
+	appimageupdatetool-x86_64.AppImage -O "$HOME/.local/bin/$item"
+done
+cd "$HOME/.local/bin/"
+tmp=`ls | grep zs-old$` 
+[ -z "$tmp" ] && echo "No old files to remove." || rm $tmp
+unset tmp

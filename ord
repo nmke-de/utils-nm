@@ -1,0 +1,19 @@
+#!/usr/bin/env perl
+use Lingua::Shakespeare;
+
+The Other Search for ASCII-Values.
+
+Hamlet, a journalist.
+Ophelia, his interviewee.
+
+	Act I: The Interview.
+
+	Scene I: Smalltalk.
+
+[Enter Hamlet and Ophelia]
+
+Hamlet: Open your mind. Open your heart.
+
+Ophelia: You beautiful pretty handsome hero! You are as sweet as the sum of a green tree and yourself. Speak your mind!
+
+[Exeunt]

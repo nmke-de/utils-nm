@@ -1,0 +1,17 @@
+#! /bin/sh
+GIT_REPO_PATH=$HOME/.local/src
+
+cd $GIT_REPO_PATH
+for i in $(ls -F | grep /$) ; do
+	#[ -f $i ] || continue
+	cd $i
+	echo $i
+	old_commit=$(git log --oneline | head -1 | cut -f1 -d' ')
+	git pull
+	[ -z "$(git submodule)" ] || git submodule update --remote --recursive
+	new_commit=$(git log --oneline | head -1 | cut -f1 -d' ')
+	if [ $old_commit != $new_commit ] ; then
+		echo "Pulled changes from remote."
+	fi
+	cd ..
+done

@@ -1,0 +1,15 @@
+#! /usr/bin/env gforth-fast
+\ Type 'h' to halt
+: MAIN
+	0 BEGIN
+		DUP 255 > OVER -1 = OR IF DROP 0 THEN
+		KEY CASE
+			'i' OF 1+ ENDOF
+			'd' OF 1- ENDOF
+			's' OF DUP * ENDOF
+			'o' OF DUP . ENDOF
+			'h' OF DROP EXIT ENDOF
+		ENDCASE
+	AGAIN
+;
+MAIN BYE

@@ -1,0 +1,36 @@
+#!/usr/bin/awk -E
+
+BEGIN{
+	quiet = 1
+	for (i=1;i<=ARGC;i++){
+		if(ARGV[i]=="-v"){
+			quiet = 0
+			ARGV[i] = ""
+		}
+	}
+}
+
+{
+	if(!quiet)
+		print $0
+	sum += $1*$2
+	count += $1
+	values[$2] = $1
+}
+
+END{
+	if(count == 0)
+		exit
+	if(!quiet)
+		print ""
+	avg = sum/count
+	for (v in values)
+		tmpvar += values[v]*(v-avg)^2
+	dev = (tmpvar/count)^0.5
+	if (dev==0)
+		print count "\t" 0
+	else{
+		for (v in values)
+			print values[v] "\t" (v-avg)/dev
+	}
+}

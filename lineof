@@ -1,0 +1,43 @@
+#!/usr/bin/awk -E
+function show_help(){
+	print "Syntax: lineof <regex> [file <filename>]"
+	exit
+}
+
+BEGIN {
+	byfile = 0
+	if (ARGC == 1)
+		show_help()
+	for (i = 1;i<=ARGC;i++){
+		if ((ARGV[i] == "file" || ARGV[i] == "from" || ARGV[i] == "-f") && read_fn == 0){
+			read_fn = 1
+			ARGV[i] = ""
+		}else if (read_fn == 1){
+			read_fn = 0
+			continue
+		}else if (ARGV[i] == "by-file" || ARGV[i] == "--by-file" || ARGV[i] == "-b"){
+			byfile = 1
+			ARGV[i] = ""
+		}else if (ARGV[i] == "--help" || ARGV[i] == "-h"){
+			show_help()
+		}else if (ARGV[i] == ""){
+			continue
+		}else{
+			regex[ARGV[i]] = ARGV[i]
+			ARGV [i] = ""
+		}
+	}
+
+}
+
+{
+	for (re in regex){
+		#print re "\t" ($0 ~ re)
+		if($0 ~ re){
+			if (byfile == 1)
+				print FILENAME "\t" FNR
+			else
+				print NR
+		}
+	}
+}

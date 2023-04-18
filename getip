@@ -1,0 +1,5 @@
+#!/bin/bash
+[ $# -eq 0 ] && ip address | grep -oE "inet (.*?) brd" | cut -f2 -d' ' | cut -f1 -d/ && exit
+[ $1 = "-p" ] && curl -L "https://www.nmke.de/getip" && exit
+[ $1 = "-h" ] && echo -e "$0 gets your ip address.\nOPTIONS\n\t-p gets your public ip address instead.\n\t-h shows this text instead." && exit
+getip -h

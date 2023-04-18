@@ -1,0 +1,24 @@
+#!/bin/bash
+arg=""
+if [ $# -eq 0 ];then
+	arg="--none"
+else
+	arg="$1"
+	shift
+fi
+while [ $# -gt 0 ]; do
+	arg="$arg+$1"
+	shift
+done
+if [ $arg = "--none" ]; then
+	while true; do
+		echo -n "Location: "
+		read location
+		location=`echo $location | tr ' ' '+'`
+		curl wttr.in/$location;
+	done
+elif [ -t 1 ]; then
+	curl wttr.in/$arg
+else
+	w3m wttr.in/$arg | less
+fi

@@ -1,0 +1,28 @@
+#!/bin/bash
+I=0
+STOP=2000
+OUTPUT=~/.cache/.results
+while [ $# -gt 0 ]; do
+	if [ $1 = "-t" ]; then
+		shift
+		STOP=$1
+		[ $STOP -le 0 ] && echo "Zero repetitions are not a thing." > /dev/stderr && exit
+	else
+		break
+	fi
+	shift
+done
+[ -f $OUTPUT ] && rm $OUTPUT
+while [ $I -lt $STOP ]; do
+	let I++
+	$@ >> $OUTPUT
+	echo -ne "$I\r" > /dev/stderr
+done
+let "STOP=$(echo $STOP | dc -e '?Zn')+1"
+I=0
+while [ $I -lt $STOP ]; do
+	let I++
+	echo -n " " > /dev/stderr
+done
+echo -ne "\r" > /dev/stderr
+linecount $OUTPUT

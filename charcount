@@ -1,0 +1,20 @@
+#!/usr/bin/awk -f
+
+BEGIN{
+	FS = ""
+}
+
+{
+	for (i=1;i<=NF;i++){
+		#print $i, charcount[$i]
+		if ($i in charcount)
+			charcount[$i]+=1
+		else
+			charcount[$i]=1
+	}
+}
+
+END{
+	for (char in charcount)
+		print charcount[char] "\t" char
+}

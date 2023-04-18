@@ -1,0 +1,12 @@
+#!/usr/bin/awk -f
+{
+	if ($0 in typecount)
+		typecount[$i]+=1
+	else
+		typecount[$i]=1
+}
+
+END{
+	for (type in typecount)
+		print typecount[type] "\t" type
+}

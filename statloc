@@ -1,0 +1,47 @@
+#!/usr/bin/awk -E
+
+BEGIN{
+	quiet = 1
+	for (i=1;i<=ARGC;i++){
+		if(ARGV[i]=="-v"){
+			quiet = 0
+			ARGV[i] = ""
+		}
+	}
+}
+
+{
+	if(!quiet)
+		print $0
+	sum += $1*$2
+	count += $1
+	values[$2] = $1
+}
+
+END{
+	if(count == 0)
+		exit
+	if(!quiet)
+		print ""
+	avg = sum/count
+	for (v in values){
+		tmpvar += values[v]*(v-avg)^2
+		if (max == "" || v-0 > max-0)
+			max = v
+		if (min == "" || v-0 < min-0)
+			min = v
+		if (mode == "" || values[v] > values[mode])
+			mode = v
+	}
+	var = tmpvar/count
+	dev = var^0.5
+	range = max-min
+	print "max\t" max
+	print "min\t" min
+	print "avg\t" avg
+	print "var\t" var
+	print "dev\t" dev
+	print "mode\t" mode
+	print "count\t" count
+	print "range\t" range
+}

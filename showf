@@ -1,0 +1,10 @@
+#!/bin/bash
+[ $# -eq 0 ] && echo "Usage: $0 NameOfScriptInPath [ Editor ]" && exit
+scriptname="$1"
+shift
+if [ $# -eq 0 ]; then
+	#nano --view `whereis $scriptname | tr : "\n" | grep /`
+	vim -R `whereis $scriptname | tr : "\n" | grep /`
+else
+	$@ `whereis $scriptname | tr : "\n" | grep /`
+fi
