@@ -1,4 +1,4 @@
-#!/usr/bin/awk -E
+#!/usr/bin/awk -f
 
 function args(){
 	for (i=1;i<=ARGC;i++){

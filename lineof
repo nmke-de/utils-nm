@@ -1,4 +1,4 @@
-#!/usr/bin/awk -E
+#!/usr/bin/awk -f
 function show_help(){
 	print "Syntax: lineof <regex> [file <filename>]"
 	exit
