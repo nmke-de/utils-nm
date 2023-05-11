@@ -1,10 +1,11 @@
-#!/bin/bash
-[ $# -eq 0 ] && echo "Usage: $0 NameOfScriptInPath [ Editor ]" && exit
-scriptname="$1"
+#!/bin/sh
+
+[ -z "$1" ] && echo "Usage: $(basename $0) filename [handler]" && exit
+target="$1"
 shift
-if [ $# -eq 0 ]; then
-	#nano --view `whereis $scriptname | tr : "\n" | grep /`
-	vim -R `whereis $scriptname | tr : "\n" | grep /`
-else
-	$@ `whereis $scriptname | tr : "\n" | grep /`
-fi
+handle="$@"
+[ -z "$handle" ] && handle=echo
+
+for i in $(echo $PATH | tr : "\n") ; do
+	[ -f "$i/$target" ] && $handle "$i/$target"
+done
