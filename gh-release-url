@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Attribution: https://gist.github.com/gvenzl/1386755861fb42db492276d3864a378c
+
+organisation=''
+repo=''
+ziptar='tar'
+
+read_orga="false"
+while [ $# -gt 0 ]; do
+	[ "$1" = "-zip" ] && ziptar='zip' && shift && continue
+	if [ "$read_orga" = "false" ]; then
+		organisation="$1"
+		read_orga="true"
+	else
+		repo="$1"
+	fi
+	shift
+done
+
+curl https://api.github.com/repos/"$organisation"/"$repo"/releases/latest | grep "$ziptar"ball_url | awk '{print $2}' | sed 's/,$//' | sed 's/"//g' | cut -d/ -f8
