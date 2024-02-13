@@ -1,0 +1,9 @@
+#!/bin/sh
+
+mins=${1:-90}
+for i in $(seq $mins); do
+	sleep 60
+	echo -ne " $i/$mins minutes passed.\r"
+done
+#sleep $((60 * $mins))
+exec mpv --really-quiet --vo=null ~/Musik
