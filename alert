@@ -6,4 +6,4 @@ for i in $(seq $mins); do
 	echo -ne " $i/$mins minutes passed.\r"
 done
 #sleep $((60 * $mins))
-exec mpv --really-quiet --vo=null ~/Musik
+exec mpv --really-quiet --vo=null ${ALERT_SOUND:-~/Musik}
