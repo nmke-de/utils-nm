@@ -228,7 +228,11 @@ Coming soon™
 
 ### `tabs2comma`
 
-Coming soon™
+`tabs2comma` converts tsv (tab separated values) files to quoted csv (comma separated values) files.
+
+**Dependencies**: POSIX shell, awk, sed
+
+**Usage**: `tabs2comma [tsvfile]`
 
 ### `typecount`
 
