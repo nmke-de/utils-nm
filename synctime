@@ -1,0 +1,5 @@
+#!/bin/sh
+
+[ "$(whoami)" != root ] && sudo $0
+ntpd -qg
+exec hwclock -w

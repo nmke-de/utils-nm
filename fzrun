@@ -1,0 +1,7 @@
+#!/bin/sh
+[ -z "$FZRUN" ] && export FZRUN=1 && exec foot -T fzrun $0 2>/dev/null
+unset FZRUN
+#. $XDG_CACHE_HOME/wal/sequences
+. $XDG_CACHE_HOME/wal/colors.sh
+cmd=$(path | fzf)
+starterc $cmd

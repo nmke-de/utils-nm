@@ -1,0 +1,11 @@
+#!/bin/sh
+if [ -z "$T" ]; then
+	if [ -n "$WAYLAND_DISPLAY" ]; then
+		export T='foot -W 21x9'
+	elif [ -n "$DISPLAY" ]; then
+		export T='st -g 21x9 -e'
+	fi
+	[ -n "$T" ] && exec $T $0 $@
+fi
+
+cal $@ | less
